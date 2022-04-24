@@ -52,20 +52,12 @@ cp .env.example .env
 # Descriptions
 ```
 
-#### Install poetry & create a `.lock` file
-🔗  [Poetry official page](https://python-poetry.org)
-```bash
-# Install poetry
-pip3 install -U poetry
-
-# Create a lock file
-poetry lock
-```
 
 </br>
 </br>
 
-### Setup with Docker
+## Setup
+### with Docker
 
 🔗  [Install Docker](https://docs.docker.com/get-docker/)
 
@@ -81,10 +73,15 @@ docker build --platform=linux/arm64 -t {image_name} ./compose/python
 
 </br>
 
-### Setup without Docker
+### with NO Docker
 
 #### Install dependencies with Poetry & activate virtual environment
+🔗  [Poetry official page](https://python-poetry.org)
 ```bash
+# Install poetry
+pip3 install -U poetry
+
+# Install dependencies
 poetry install
 poetry shell
 ```
@@ -94,7 +91,7 @@ poetry shell
 
 ## Usage
 
-### With Docker
+### with Docker
 
 ```bash
 # Run the container
@@ -103,7 +100,7 @@ docker run --name {container_name} --rm {image_name}
 
 </br>
 
-### Without Docker
+### with NO Docker
 
 </br>
 
