@@ -75,7 +75,7 @@ docker build --platform=linux/arm64 -t {image_name} ./compose/python
 
 ### with NO Docker
 
-#### Install dependencies with Poetry & activate virtual environment
+##### Install dependencies with Poetry & activate virtual environment
 🔗  [Poetry official page](https://python-poetry.org)
 ```bash
 # Install poetry
