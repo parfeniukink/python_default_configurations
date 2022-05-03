@@ -27,24 +27,18 @@ poetry shell
 > NOTE: Remove lines before the README template
 
 
-</br>
-</br>
-
 
 ### ⬇️  ⬇️  Project README file template ⬇️  ⬇️ 
 # Project name
 
 About this project
 
-</br>
-</br>
-
-## Setup the environment
 
 
-### Mandatory steps
+# Setup the environment
 
-#### Create environment configuration file based on `.env.example`
+
+### Create environment configuration file based on `.env.example`
 ```bash
 cp .env.example .env
 
@@ -52,16 +46,16 @@ cp .env.example .env
 # Descriptions
 ```
 
-#### Install [pre-commit hooks](https://pre-commit.com/#install)
+### Install [pre-commit hooks](https://pre-commit.com/#install)
+> Note: Install pre-commit tool before
 ```bash
 pre-commit install
 ```
 
 
-</br>
-</br>
 
-## Setup
+# Setup
+
 ### with Docker
 
 🔗  [Install Docker](https://docs.docker.com/get-docker/)
@@ -75,12 +69,9 @@ docker build --platform=linux/arm64 -t {image_name} ./compose/python
 
 ```
 
-
-</br>
-
 ### with NO Docker
 
-##### Install dependencies with Poetry & activate virtual environment
+#### Install dependencies with Poetry & activate virtual environment
 🔗  [Poetry official page](https://python-poetry.org)
 ```bash
 # Install poetry
@@ -91,10 +82,9 @@ poetry install
 poetry shell
 ```
 
-</br>
 
 
-## Usage
+# Usage
 
 ### with Docker
 
@@ -103,10 +93,8 @@ poetry shell
 docker run --name {container_name} --rm {image_name}
 ```
 
-</br>
-
 ### with NO Docker
 
-</br>
 
-## Additional information
+
+# Additional information
