@@ -52,6 +52,11 @@ cp .env.example .env
 # Descriptions
 ```
 
+#### Install [pre-commit hooks](https://pre-commit.com/#install)
+```bash
+pre-commit install
+```
+
 
 </br>
 </br>
