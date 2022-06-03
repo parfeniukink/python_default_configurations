@@ -49,3 +49,10 @@ use_parentheses = true
 line_length = 88
 skip = '.venv,venv,env,migrations'
 src_paths = []
+
+
+[tool.mypy]
+python_version = '3.10'
+mypy_path = 'src'
+files = ['*.py',]
+ignore_missing_imports = true
