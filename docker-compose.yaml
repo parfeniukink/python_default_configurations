@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: CHANGEME_postgres
+    env_file: ".env"
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+  app: &app
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: ./compose/changeme/Dockerfile
+    image: CHANGEME
+    container_name: CHANGEME
+    entrypoint: /CHANGEME-entrypoint
+    command: /CHANGEME-start
+    env_file: ".env"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app/
+
+volumes:
+  pg_data: {}

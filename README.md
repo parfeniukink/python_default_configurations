@@ -12,89 +12,142 @@
 </br>
 
 
-### Install dependencies
----
-#### Install dev-dependencies with poetry
-⚠️   First of all you have to specify `name` in `pyproject.toml` file
+# CHANGE ME: The name of the repository
+
+</br>
+
+<p align="left">
+
+<a href="https://github.com/parfeniukink/python_default_configurations/releases" target="_blank">
+    <img src="https://img.shields.io/github/license/parfeniukink/python_default_configurations?color=green">
+</a>
+
+<a href="https://shields.io/" target="_blank">
+    <img src="https://img.shields.io/badge/python_versions-3.10+-blue.svg">
+</a>
+
+</p>
+
+
+</br>
+
+
+<b><p align="left">✔️ About option 1</p>
+<p align="left">✔️ About option 2</p>
+<p align="left">✔️ About option N</p></b>
+
+
+</br>
+
+# 🔌 Application is powered by
+
+**Design principles:**
+
+- ✅ [The 12-Factor App](https://12factor.net)
+- ✅ [Domain driven design](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software-ebook/dp/B00794TAUG)
+
+
+**Core tools**
+
+- ✅ [Python3.10](https://www.python.org/downloads/release/python-3100/)
+- ✅ [Pipenv](https://pipenv.pypa.io)
+- ✅ [Pydantic](https://pydantic-docs.helpmanual.io)
+
+**Code quality tools**
+
+- ✅ [flake8](https://github.com/pycqa/flake8)
+- ✅ [black](https://github.com/psf/black)
+- ✅ [isort](https://github.com/PyCQA/isort)
+- ✅ [mypy](https://github.com/python/mypy)
+- ✅ [pytest](https://github.com/pytest-dev/pytest)
+
+**Infrastructure**
+
+- ✅ [Docker](https://docs.docker.com/get-docker/)
+- ✅ [PostgeSQL 13](https://www.postgresql.org/docs/13/release-13-3.html)
+- ✅ [Redis](https://redis.io)
+
+## ✋ Mandatory steps
+
+### 1. Clone the project 🌐
 
 ```bash
-poetry install
-poetry shell
+git clone https://github.com/parfeniukink/CHANGE_ME.git
 ```
 
-> NOTE: Poetry installation command will create a `poetry.lock` file.
+### 2. Setup environment variables ⚙️
 
-> NOTE: Remove lines before the README template
+👉 Project is configured via environment variables.
+You have to export them into your session from which you are running the application locally of via Docker.
 
+👉 All default variables configured for making easy to run application via Docker in a few clicks.
 
+> 💡 All of them you can find in `.env.default`
 
-### ⬇️  ⬇️  Project README file template ⬇️  ⬇️ 
-# Project name
+#### 2.1 Description 📜
 
-About this project
+| Key | Default value | Description |
+| --- | ------------- | ----------- |
+| `PYTHONPATH` | `src/` | [Documentation](https://docs.python.org/3.10/using/cmdline.html#envvar-PYTHONPATH) |
+| `PIPENV_EXTRA_ARGS` | "--dev" | Additional pipenv arguments passing configuration |
+| `REDIS_URL` | `redis://redis` | Redis URL that should match pattern: `redis_protocol://username:password@host:port/db_index` |
+| `POSTGRES_HOST` | `postgres` | The database host |
+| `POSTGRES_PORT` | `5432` | The database port |
+| `POSTGRES_USER` | `postgres` | The database username |
+| `POSTGRES_PASSWORD` | `postgres` | The database user's password |
+| `POSTGRES_DB` | `CHANGE_ME` | The database database name |
 
+##### ✋ Mandatory:
 
+#### 2.2 Create `.env` file for future needs
 
-# Setup the environment
-
-
-### Create environment configuration file based on `.env.example`
-```bash
-cp .env.example .env
-
-# Complete next variables:
-# Descriptions
-```
-
-### Install [pre-commit hooks](https://pre-commit.com/#install)
-> Note: Install pre-commit tool before
-```bash
-pre-commit install
-```
-
-
-
-# Setup
-
-### with Docker
-
-🔗  [Install Docker](https://docs.docker.com/get-docker/)
+It is hightly recommended to create `.env` file as far as it is needed for setting up the project with Local and Docker approaches.
 
 ```bash
-# Run docker-compose services
-docker-compose up
-
-# Build the image
-docker build --platform=linux/arm64 -t {image_name} ./compose/python
-
+cp .env.default .env
 ```
 
-### with NO Docker
+## 👨‍🦯 <span>Local development</span>
 
-#### Install dependencies with Poetry & activate virtual environment
-🔗  [Poetry official page](https://python-poetry.org)
+### 1. Decide how would you run storages 🤔
+
+#### 1.1 Setup locally
+
+✅ [🐧 Linux](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+
+✅ [ MacOs](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/)
+
+
+
+### 🐳 With Docker
+
+🔗  [Docker installation](https://docs.docker.com/get-docker/)
+
+```bash
+# Run docker-compose services as deaemon
+docker-compose build
+docker-compose up -d
+```
+> Note: It will create 2 containers: **family_budget_bot_app** and **family_budget_bot_postgres**
+
+> Note: database volume is static for the app. It means, that after removing any container your data will not be removed.
+
+
+### 🐭 With NO Docker
+
+#### Install dependencies with Pipenv & activate virtual environment
+🔗  [Pipenv official page](https://pipenv.pypa.io)
+
 ```bash
 # Install poetry
-pip3 install -U poetry
+pip3 install -U pipenv
 
 # Install dependencies
-poetry install
-poetry shell
+pipenv sync --dev
+
+# Run the application
+CHANGEME...
 ```
 
 
-
-# Usage
-
-### with Docker
-
-```bash
-# Run the container
-docker run --name {container_name} --rm {image_name}
-```
-
-### with NO Docker
-
-
-
-# Additional information
+## 🐘 Additional information
