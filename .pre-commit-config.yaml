@@ -16,9 +16,9 @@ repos:
       pass_filenames: false
 
 
-    - id: flake8
+    - id: ruff
       name: "Running linter"
-      entry: flake8 .
+      entry: ruff .
       language: system
       types: [python]
       pass_filenames: false
@@ -34,7 +34,7 @@ repos:
 
     - id: pytest
       name: "Running unit tests"
-      entry: pytest --cov --cov-fail-under=80
+      entry: pytest --cov --cov-fail-under=90
       language: system
       types: [python]
       pass_filenames: false

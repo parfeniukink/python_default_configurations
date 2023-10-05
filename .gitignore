@@ -1,23 +1,29 @@
-## Operating system specific
+# ************************************************
+# ********** operating system **********
+# ************************************************
 
-# Mac
+# MacOS
 .DS_Store
 
 
-## Environments
+# ************************************************
+# ********** environment **********
+# ************************************************
 .env
 local.env
 
-# Virtual environments
+# virtual environments
 .venv
 env/
 venv/
 
 
 
-## Editors
+# ************************************************
+# ********** editors **********
+# ************************************************
 
-# VS code
+# VSCode
 .vscode
 
 # PyCharm
@@ -25,34 +31,43 @@ venv/
 
 
 
-## Storages
-# Databases dumps
+# ************************************************
+# ********** storages **********
+# ************************************************
+# databases dumps
 dump.sql
 
-# Sqlite
+# sqlite
 *.sqlite3
 *.db
 
 
 
-## Log files
+## log files
 *log
 
 
 
-## Infrastructure
-# Kubernetes configmaps
+# ************************************************
+# ********** infrastructure **********
+# ************************************************
+
+# kubernetes configmaps
 infra/configmaps.yaml
 
 
-## Python stuff
+# ************************************************
+# ********** python **********
+# ************************************************
 
-# Byte-compiled / optimized / DLL files
+# byte-compiled / optimized / DLL files
 __pycache__/
 
-# Unit test / coverage reports
+# unit test / coverage reports
 .coverage
 .coverage.*
-
-# Hypothesis
 .hypothesis/
+
+# linters / checkers
+.mypy_cache/
+.ruff_cache/

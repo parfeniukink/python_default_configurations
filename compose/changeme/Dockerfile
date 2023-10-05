@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 python:3.10-slim
+FROM --platform=linux/x86_64 python:3.11-slim
 
 # Build arguments
 ARG PIPENV_EXTRA_ARGS
@@ -8,8 +8,6 @@ ARG PIPENV_EXTRA_ARGS
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app/
-
-COPY poetry.lock pyproject.toml ./
 
 RUN apt-get update \
     # dependencies for building Python packages && cleaning up unused files
@@ -27,16 +25,18 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -s /bin/bash
 
 
-# Python dependencies
+# Install Pyhton dependencies
 RUN pip install --upgrade pip pipenv setuptools
-
-COPY Pipfile Pipfile.lock ./
-RUN pipenv sync --system ${PIPENV_EXTRA_ARGS}
+COPY requirements.txt ./
+RUN pip install -r requiements.txt
 
 
 # Copy infrustructure scripts
-COPY --chown=code:code ./compose/CHANGE_ME/entrypoint /changeme-entrypoint
-RUN sed -i 's/\r$//g' /changeme-entrypoint && chmod +x /changeme-entrypoint
+COPY --chown=code:code ./compose/changeme/entrypoint /entrypoint
+RUN sed -i 's/\r$//g' /entrypoint && chmod +x /entrypoint
+
+COPY --chown=code:code ./compose/changeme/start /start
+RUN sed -i 's/\r$//g' /start && chmod +x /start
 
 
 # Copy project stuff
