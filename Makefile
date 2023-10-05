@@ -4,18 +4,18 @@
 
 .PHONY: lock  # pin prod dependencies
 lock:
-	pip-compile --generate-hashes requirements.in -o requirements.txt
+	pip-compile requirements.in -o requirements.txt
 
 
 .PHONY: lock.dev  # pin dev dependencies
 lock.dev:
-	pip-compile --generate-hashes requirements.dev.in -o requirements.dev.txt
+	pip-compile requirements.dev.in -o requirements.dev.txt
 
 
 .PHONY: lock.all  # pin all dependencies
 lock.all:
-	pip-compile --generate-hashes requirements.in -o requirements.txt
-	pip-compile --generate-hashes requirements.dev.in -o requirements.dev.txt
+	pip-compile requirements.in -o requirements.txt
+	pip-compile requirements.dev.in -o requirements.dev.txt
 
 
 .PHONY: sync  # sync for prod dependencies
@@ -28,39 +28,39 @@ sync.dev:
 	pip-sync requirements.dev.txt
 
 
-.PHONY: update  # pin and sync for prod dependencies
+.PHONY: update  # lock & sync for prod dependencies
 update:
-	pip-compile --generate-hashes requirements.in -o requirements.txt
+	pip-compile requirements.in -o requirements.txt
 	pip-sync requirements.txt
 
 
-.PHONY: update.dev  # pin and sync for prod dependencies
+.PHONY: update.dev  # lock & sync for prod dependencies
 update.dev:
-	pip-compile --generate-hashes requirements.dev.in -o requirements.dev.txt
+	pip-compile requirements.dev.in -o requirements.dev.txt
 	pip-sync requirements.dev.txt
 
 
-.PHONY: update.all  # pin and sync for all dependencies
+.PHONY: update.all  # lock & sync for all dependencies
 update.all:
-	pip-compile --generate-hashes requirements.in -o requirements.txt
-	pip-compile --generate-hashes requirements.dev.in -o requirements.dev.txt
+	pip-compile requirements.in -o requirements.txt
+	pip-compile requirements.dev.in -o requirements.dev.txt
 	pip-sync requirements.dev.txt
 
 
 .PHONY: upgrade  # upgrade prod dependencies. Generate new .txt file
 upgrade:
-	pip-compile --generate-hashes --upgrade requirements.in -o requirements.txt
+	pip-compile --upgrade requirements.in -o requirements.txt
 
 
 .PHONY: upgrade.dev  # upgrade dev dependencies. Generate new .dev.txt file
 upgrade.dev:
-	pip-compile --generate-hashes --upgrade requirements.dev.in -o requirements.dev.txt
+	pip-compile --upgrade requirements.dev.in -o requirements.dev.txt
 
 
 .PHONY: upgrade.all  # upgrade all dependencies. Generate new .txt files
 upgrade.all:
-	pip-compile --generate-hashes --upgrade requirements.in -o requirements.txt
-	pip-compile --generate-hashes --upgrade requirements.dev.in -o requirements.dev.txt
+	pip-compile --upgrade requirements.in -o requirements.txt
+	pip-compile --upgrade requirements.dev.in -o requirements.dev.txt
 
 
 # ************************************************

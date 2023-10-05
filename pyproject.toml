@@ -1,3 +1,8 @@
+[tool.pip-tools]
+generate_hashes = true
+
+
+
 [tool.ruff]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 select = ["E", "F"]

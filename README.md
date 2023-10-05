@@ -49,8 +49,8 @@
 
 **Core tools**
 
-- ✅ [Python3.10](https://www.python.org/downloads/release/python-3100/)
-- ✅ [Pipenv](https://pipenv.pypa.io)
+- ✅ [Python3.11](https://www.python.org/downloads/release/python-3115/)
+- ✅ [pip-tools](https://pipenv.pypa.io)
 - ✅ [Pydantic](https://pydantic-docs.helpmanual.io)
 
 **Code quality tools**
