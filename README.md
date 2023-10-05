@@ -50,12 +50,12 @@
 **Core tools**
 
 - ✅ [Python3.11](https://www.python.org/downloads/release/python-3115/)
-- ✅ [pip-tools](https://pipenv.pypa.io)
+- ✅ [pip-tools](https://pypi.org/project/pip-tools/)
 - ✅ [Pydantic](https://pydantic-docs.helpmanual.io)
 
 **Code quality tools**
 
-- ✅ [flake8](https://github.com/pycqa/flake8)
+- ✅ [ruff](https://docs.astral.sh/ruff/)
 - ✅ [black](https://github.com/psf/black)
 - ✅ [isort](https://github.com/PyCQA/isort)
 - ✅ [mypy](https://github.com/python/mypy)
@@ -64,18 +64,25 @@
 **Infrastructure**
 
 - ✅ [Docker](https://docs.docker.com/get-docker/)
-- ✅ [PostgeSQL 13](https://www.postgresql.org/docs/13/release-13-3.html)
-- ✅ [Redis](https://redis.io)
+- ✅ [PostgeSQL 16](https://www.postgresql.org/about/news/postgresql-16-released-2715/)
+- ✅ [Redis](https://redis.com/blog/redis-7-generally-available/)
 
-## ✋ Mandatory steps
+
+
+## 🚧 Mandatory steps
 
 ### 1. Clone the project 🌐
 
 ```bash
-git clone https://github.com/parfeniukink/CHANGE_ME.git
+git clone https://github.com/parfeniukink/CHANGEME.git
 ```
 
+
 ### 2. Setup environment variables ⚙️
+
+```bash
+cp .env.default .env
+```
 
 👉 Project is configured via environment variables.
 You have to export them into your session from which you are running the application locally of via Docker.
@@ -84,70 +91,108 @@ You have to export them into your session from which you are running the applica
 
 > 💡 All of them you can find in `.env.default`
 
-#### 2.1 Description 📜
 
-| Key | Default value | Description |
-| --- | ------------- | ----------- |
-| `PYTHONPATH` | `src/` | [Documentation](https://docs.python.org/3.10/using/cmdline.html#envvar-PYTHONPATH) |
-| `PIPENV_EXTRA_ARGS` | "--dev" | Additional pipenv arguments passing configuration |
-| `REDIS_URL` | `redis://redis` | Redis URL that should match pattern: `redis_protocol://username:password@host:port/db_index` |
-| `POSTGRES_HOST` | `postgres` | The database host |
-| `POSTGRES_PORT` | `5432` | The database port |
-| `POSTGRES_USER` | `postgres` | The database username |
-| `POSTGRES_PASSWORD` | `postgres` | The database user's password |
-| `POSTGRES_DB` | `CHANGE_ME` | The database database name |
+## ✖️ 🐳 Without docker
 
-##### ✋ Mandatory:
+### 🔧 Setup the environment
+👉 For running the application locally without a tool like Docker you would need to install all dependencies by yourself.
 
-#### 2.2 Create `.env` file for future needs
+👉 First of all you have to install Python3.11 and SQLite3 on your machine since they are main infrastructure components.
 
-It is hightly recommended to create `.env` file as far as it is needed for setting up the project with Local and Docker approaches.
+Then you have to install Python dependencies that are used for running the application. For doing this we just use build-in tools and `pip-tools`.
 
 ```bash
-cp .env.default .env
+# create the environment
+virtualenv --python python3.11 venv && source venv/bin/activate
+
+# install pip-tools
+pip install pip-tools
 ```
 
-## 👨‍🦯 <span>Local development</span>
 
-### 1. Decide how would you run storages 🤔
+Once you have `pip-tools` installed within the virtual environment let's have a look how to interact with it:
+```bash
+# activate the virtual environment
+# unix
+. ./venv/bin/activate
 
-#### 1.1 Setup locally
+# windows ()
+.\venv\Scripts\activate
 
-✅ [🐧 Linux](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
 
-✅ [ MacOs](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/)
+# pin versions according to the `*.in` file
+pip-compile requirements.in -o requirements.txt
+pip-compile requirements.dev.in -o requirements.dev.txt
 
+# install dependencies
+pip-sync requirements.txt
+pip-sync requirements.dev.txt
+```
+
+
+
+**How to install new dependency?**
+
+```bash
+"requests>=2.31" >> requirements.in
+pip-compile requirements.in  # generates the requirements.txt
+pip-sync  # alias to pip install -r requirements.txt
+```
+
+**Is there a good place with `pip-tools` commands?**
+
+Yes, you can go the the `Makefile` and take a look most common used commands.
+Basically, everything you have to do if you'd like to add the dependency you can reduce it to next:
+
+```bash
+"requests>=2.31" >> requirements.in
+make deps.update
+```
+
+
+**How should I run storages?**
+
+There are 2 ways to run your storages:
+* within docker containers
+* self-hosted on your operating system
+
+For the simplisity the example with docker run will be represented.
+Also, if you do not hesitate to run everything locally and you know how to manage it, obviously you don't have to read this out 😈
+
+Make sure that you have `ports` parameter defined to expose the post on your host operating system in order to be able to connect to the service from the locally running application.
+
+```bash
+docker-compose up -d postgres redis
+```
+
+
+*TODO: Add the guide "how to run the application"*
 
 
 ### 🐳 With Docker
 
 🔗  [Docker installation](https://docs.docker.com/get-docker/)
 
+If you'd like to run everything within separate docker containers do next:
+
 ```bash
 # Run docker-compose services as deaemon
-docker-compose build
 docker-compose up -d
 ```
-> Note: It will create 2 containers: **family_budget_bot_app** and **family_budget_bot_postgres**
 
-> Note: database volume is static for the app. It means, that after removing any container your data will not be removed.
+👉 database volume is static for the app. It means, that after removing any container your data will not be removed.
 
+👉 If you'd like to debug the python code within the container you can go with any debug tool you want to, but make sure that you have `stdin_open=true` and `tty=true`
 
-### 🐭 With NO Docker
-
-#### Install dependencies with Pipenv & activate virtual environment
-🔗  [Pipenv official page](https://pipenv.pypa.io)
-
-```bash
-# Install poetry
-pip3 install -U pipenv
-
-# Install dependencies
-pipenv sync --dev
-
-# Run the application
-CHANGEME...
+```yaml
+services:
+      app: &app
+        stdin_open: true
+        tty: true
+        ...
 ```
+
+
 
 
 ## 🐘 Additional information
