@@ -84,8 +84,8 @@ run.dev:
 # ************************************************
 
 # fix formatting / and order imports
-.PHONY: fix
-fix:
+.PHONY: format
+format:
 	python -m black ./
 	python -m isort ./
 
@@ -97,18 +97,16 @@ types:
 
 
 # run tests
-.PHONY: test
-test:
-	python -m pytest --cov-report=term-missing -vvv -x
+.PHONY: tests
+tests:
+	python -m pytest --cov-report=term-missing -vvv -x .
 
 
 # check everything
 .PHONY: check
 check:
-	python -m ruff ./
-	python -m black --check ./
-	python -m isort --check ./
-	python -m mypy --check-untyped-defs ./
-	python -m pytest --cov-report=term-missing --cov --cov-fail-under=90
-
-
+	python -m ruff .
+	python -m black --check .
+	python -m isort --check .
+	python -m mypy --check-untyped-defs .
+	python -m pytest --cov-report=term-missing --cov --cov-fail-under=90 .
